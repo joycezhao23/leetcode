@@ -1,0 +1,29 @@
+class Solution {
+    public List<String> generateParenthesis(int n) {
+        List<String> list = new ArrayList<String>();
+        if(n < 1) return list;
+        StringBuilder sb = new StringBuilder();
+        
+        helper(sb, list, n, 0, 0);
+        return list;
+    }
+    
+    private void helper(StringBuilder sb, List<String> list, int n, int left, int right) {
+        if (sb.length() == n * 2) {
+            list.add(sb.toString());
+            return;
+        }
+        
+        if (left < n) {
+            sb.append('(');
+            helper(sb, list, n, left + 1, right);
+            sb.deleteCharAt(sb.length() - 1);
+        }
+        
+        if (left > right) {
+            sb.append(')');
+            helper(sb, list, n, left, right+1);
+            sb.deleteCharAt(sb.length() - 1);
+        }
+    }
+}
