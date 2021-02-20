@@ -1,0 +1,33 @@
+class Solution {
+    public List<List<String>> partition(String s) {
+        List<List<String>> res = new ArrayList<>();
+        List<String> cur = new ArrayList<String>();
+        dfs(res, cur, s, 0);
+        return res;
+    }
+    
+    private void dfs(List<List<String>> res, List<String> cur, String s, int pos) {
+        if (pos == s.length()) {
+            res.add(new ArrayList<String>(cur));
+            return;
+        }
+        
+        for (int i = pos; i < s.length(); i++) {
+            if (isPal(s, pos, i)) {
+                cur.add(s.substring(pos, i + 1));
+                dfs(res, cur, s, i + 1);
+                cur.remove(cur.size() - 1);
+            }
+        }
+    }
+    
+    private boolean isPal(String s, int start, int end) {
+        while (start < end) {
+            if (s.charAt(start++) != s.charAt(end--)) {
+                return false;
+            }
+        }
+        
+        return true;
+    } 
+}
