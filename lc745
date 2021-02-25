@@ -1,0 +1,41 @@
+class WordFilter {
+    TrieNode root;
+    
+    public WordFilter(String[] words) {
+        root = new TrieNode();
+        for (int index = 0; index < words.length; index++) {
+            String word = words[index] + "{";
+            for (int i = 0; i < word.length(); i++) {
+                TrieNode cur = root;
+                for (int j = i; j < 2 * word.length() - 1; j++) {
+                    int pos = word.charAt(j % word.length()) - 'a';
+                    if (cur.children[pos] == null) {
+                        cur.children[pos] = new TrieNode();
+                    }
+                    cur = cur.children[pos];
+                    cur.index = index;
+                }
+            }   
+        }
+    }
+    
+    public int f(String prefix, String suffix) {
+        TrieNode cur = root;
+        String word = suffix + "{" + prefix;
+        for (int i = 0; i < word.length(); i++) {
+            int pos = word.charAt(i) - 'a';
+            if (cur.children[pos] == null) return -1;
+            cur = cur.children[pos];
+        }
+        return cur.index;
+    }
+}
+
+class TrieNode {
+    TrieNode[] children;
+    int index;
+    
+    public TrieNode() {
+        this.children = new TrieNode[27];
+    }
+}
