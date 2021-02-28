@@ -1,0 +1,29 @@
+class Solution {
+    public boolean makesquare(int[] nums) {
+        if (nums.length == 0) return false;
+        int total = getTotal(nums);
+        if (total % 4 != 0) return false;
+        return dfs(total / 4, new int[4], nums, 0);
+    }
+    
+    private boolean dfs(int target, int[] sums, int[] nums, int pos) {
+        if (pos == nums.length) return true;
+        
+        for (int i = 0; i < 4; i++) {
+            if (sums[i] + nums[pos] > target) continue;
+            sums[i] += nums[pos];
+            if (dfs(target, sums, nums, pos + 1)) return true;
+            sums[i] -= nums[pos];
+        }
+        
+        return false;
+    }
+    
+    private int getTotal(int[] nums) {
+        int res = 0;
+        for (int i : nums) {
+            res += i;
+        }
+        return res;
+    }
+}
