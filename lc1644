@@ -1,0 +1,20 @@
+class Solution {
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        TreeNode node = lca(root, p.val, q.val);
+        return count == 2 ? node : null;
+    }
+    
+    int count = 0;
+    
+    private TreeNode lca(TreeNode cur, int p, int q) {
+        if(cur == null) return cur;
+        TreeNode left = lca(cur.left, p, q);
+        TreeNode right = lca(cur.right, p, q);
+        
+        if(cur.val == p || cur.val == q) {
+            count++;
+            return cur;
+        }
+        return left == null ? right : right == null ? left : cur;
+    }
+}
