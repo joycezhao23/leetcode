@@ -1,0 +1,23 @@
+class Solution {
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode[] nodes) {
+        if (root == null) return root;
+        
+        Set<Integer> set = new HashSet<Integer>();
+        for(TreeNode node : nodes) set.add(node.val);
+        lca(root, set);
+        return node;
+    }
+    
+    TreeNode node = null;
+    
+    private int lca(TreeNode root, Set<Integer> nodes) {
+        if (root == null) return 0;
+        int left = lca(root.left, nodes);
+        int right = lca(root.right, nodes);
+        int total = left + right;
+        if (nodes.contains(root.val)) total++;
+        if (total == nodes.size() && node == null) node = root;
+        
+        return total;
+    }
+}
