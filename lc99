@@ -1,0 +1,22 @@
+class Solution {
+    public void recoverTree(TreeNode root) {
+        traverse(root);
+        int tmp = n1.val;
+        n1.val = n2.val;
+        n2.val = tmp;
+    }
+    
+    TreeNode n1 = null, n2 = null, prev = new TreeNode(Integer.MIN_VALUE);
+    
+    private void traverse(TreeNode root) {
+        if (root == null) return;
+        
+        traverse(root.left);
+        
+        if (n1 == null && prev.val > root.val) n1 = prev;
+        if (n1 != null && prev.val > root.val) n2 = root;
+        
+        prev = root;
+        traverse(root.right);
+    }
+}
