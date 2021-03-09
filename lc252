@@ -1,0 +1,19 @@
+class Solution {
+    public boolean canAttendMeetings(int[][] intervals) {
+        if (intervals.length == 0) return true;
+        PriorityQueue<int[]> pq = new PriorityQueue<int[]>(new Comparator<int[]>(){
+            public int compare(int[] a, int[] b) {
+                return a[0] == b[0] ? a[1] - b[1] : a[0] - b[0];
+            }
+        });
+        
+        for (int[] interval : intervals) pq.add(interval);
+        int prevEnd = pq.poll()[1];
+        while (!pq.isEmpty()) {
+            int[] curr = pq.poll();
+            if (prevEnd > curr[0]) return false;
+            prevEnd = curr[1];
+        }
+        return true;
+    }
+}
