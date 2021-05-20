@@ -6,20 +6,19 @@ class Solution {
         List<Integer> res = new ArrayList<Integer>();
         
         for (int i = 0; i < s.length(); i++) {
-            if (s.charAt(i) == '+' || s.charAt(i) == '-' || s.charAt(i) == '*') {
+            char c = s.charAt(i);
+            if (c == '+' || c == '-' || c == '*') {
                 List<Integer> l1 = diffWaysToCompute(s.substring(0, i)), l2 = diffWaysToCompute(s.substring(i + 1));
-                for (int num1 : l1) {
-                    for (int num2 : l2) {
-                        int c = 0;
-                        switch (s.charAt(i)) {
-                            case '+': c = num1 + num2;
+                for (int n1: l1) {
+                    for (int n2: l2) {
+                        switch(c){
+                            case '+': res.add(n1+n2);
                                 break;
-                            case '-': c = num1 - num2;
+                            case '-': res.add(n1 - n2);
                                 break;
-                            case '*': c = num1 * num2;
+                            case '*': res.add(n1 * n2);
                                 break;
                         }
-                        res.add(c);
                     }
                 }
             }
