@@ -1,19 +1,19 @@
 class Solution {
     public boolean checkValidString(String s) {
-        int cmax = 0, cmin = 0;
+        int lo = 0, hi = 0;
         for (int i = 0; i < s.length(); i++) {
             if (s.charAt(i) == '(') {
-                cmax++;
-                cmin++;
+                lo++;
+                hi++;
             } else if (s.charAt(i) == ')') {
-                cmax--;
-                cmin = Math.max(cmin-1, 0);
+                hi--;
+                if (lo > 0) lo--;
             } else {
-                cmax++;
-                cmin = Math.max(cmin - 1, 0);
+                hi++;
+                if (lo > 0) lo--;
             }
-            if (cmax < 0) return false;
+            if (hi < 0) return false;
         }
-        return cmin == 0;
+        return lo == 0;
     }
 }
