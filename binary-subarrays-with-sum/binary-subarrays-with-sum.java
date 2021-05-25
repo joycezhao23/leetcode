@@ -5,13 +5,13 @@ class Solution {
     
     private int atMost(int[] nums, int t) {
         if (t < 0) return 0;
-        int l = 0, sum = 0, res = 0;
-        for (int i = 0; i < nums.length; i++) {
-            sum += nums[i];
+        int res = 0, i = 0, sum = 0;
+        for (int j = 0; j < nums.length; j++) {
+            sum += nums[j];
             while (sum > t) {
-                sum -= nums[l++]; 
+                sum -= nums[i++];
             }
-            res += i - l + 1;
+            res += j - i + 1;
         }
         return res;
     }
