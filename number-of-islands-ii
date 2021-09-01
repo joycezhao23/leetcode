@@ -1,0 +1,51 @@
+class Solution {
+    int rows = 0, cols = 0, count = 0;
+    
+    public List<Integer> numIslands2(int m, int n, int[][] positions) {
+        rows = m;
+        cols = n;
+        int[] parents = new int[m * n];
+        Arrays.fill(parents, -1);
+        int[] dx = {0,1,0,-1}, dy = {1,0,-1,0};
+        List<Integer> res = new ArrayList<Integer>();
+        for (int[] pos : positions) {
+            int idx = convert(pos[0], pos[1]);
+            if (parents[idx] != -1) {
+                res.add(count);
+                continue;
+            }
+            parents[idx] = idx;
+            count++;
+            for (int i = 0; i < 4; i++) {
+                int x = pos[0] + dx[i], y = pos[1] + dy[i];
+                if (isValid(x, y, parents)) {
+                    union(idx, convert(x, y), parents);
+                }
+            }
+            res.add(count);
+        }
+        return res;
+    }
+    
+    private int find(int x, int[] parents) {
+        if (parents[x] == x)
+            return x;
+        return parents[x] = find(parents[x], parents);
+    }
+    
+    private void union(int x, int y, int[] parents) {
+        int px = find(x, parents), py = find(y, parents);
+        if (px != py) {
+            count--;
+            parents[px] = py;
+        }
+    }    
+    
+    private int convert(int x, int y) {
+        return x * cols + y;
+    }
+    
+    private boolean isValid(int x, int y, int[] parents) {
+        return x >= 0 && x < rows && y >= 0 && y < cols && parents[convert(x,y)] != -1;
+    }
+}
