@@ -1,21 +1,20 @@
 class Solution {
     public int lastStoneWeightII(int[] stones) {
-        Set<Integer> set1 = new HashSet<Integer>();
-        set1.add(0);
+        int sum = 0;
+        boolean[] dp = new boolean[1501];
+        dp[0] = true;
         for (int i : stones) {
-            Set<Integer> set2 = new HashSet<Integer>();
-            for (int j : set1) {
-                set2.add(i + j);
-                set2.add(j - i);
+            sum += i;
+            for (int j = Math.min(1500, sum); j >= i; j--) {
+                dp[j] |= dp[j - i];
             }
-            set1 = set2;
         }
-        int res = Integer.MAX_VALUE;
-        for (int i : set1) {
-            if (i >= 0) 
-                res = Math.min(i, res);
-            if (res == 0) break;
+        
+        for (int i = sum / 2; i>= 0; i--) {
+            if (dp[i]) {
+                return sum - i - i;
+            }
         }
-        return res;
+        return -1;
     }
 }
