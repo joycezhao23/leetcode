@@ -18,15 +18,15 @@ class Solution {
         return res;
     }
     
-    private void helper(char[] cs, int pos, StringBuilder sb, List<String> res, Map<Character, char[]> map) {
-        if (pos == cs.length) {
+    private void helper(char[] cs, int idx, StringBuilder sb, List<String> res, Map<Character, char[]> map) {
+        if (idx == cs.length) {
             res.add(sb.toString());
             return;
         }
         
-        for (char c : map.get(cs[pos])) {
-            sb.append(c);
-            helper(cs, pos + 1, sb, res, map);
+        for (char next : map.get(cs[idx])) {
+            sb.append(next);
+            helper(cs, idx + 1, sb, res, map);
             sb.deleteCharAt(sb.length() - 1);
         }
     }
