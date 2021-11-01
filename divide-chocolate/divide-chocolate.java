@@ -1,28 +1,28 @@
 class Solution {
-    public int maximizeSweetness(int[] arr, int K) {
-        int lo = 1, hi = Integer.MAX_VALUE;
-        while (lo + 1 < hi) {
-            int mid = lo + (hi - lo) / 2;
-            if (chunk(arr, mid) > K) {
-                lo = mid;
+    public int maximizeSweetness(int[] sweetness, int k) {
+        int l = 0, r = Integer.MAX_VALUE;
+        arr = sweetness;
+        while (l + 1 < r) {
+            int mid = l + (r - l) / 2;
+            if (valid(mid, k)) {
+                l = mid;
             } else {
-                hi = mid;
+                r = mid;
             }
         }
-        if (chunk(arr, hi) > K) return hi;
-        return lo;
+        return valid(r, k) ? r : l;
     }
+    int[] arr;
     
-    private int chunk(int[] arr, int t) {
-        int res = 0, sum = 0;
+    private boolean valid(int s, int k) {
+        int count = 0, cur = 0;
         for (int i = 0; i < arr.length; i++) {
-            if (sum + arr[i] < t) {
-                sum += arr[i];                
-            } else if (sum + arr[i] >= t) {
-                res++;
-                sum = 0;
+            cur += arr[i];
+            if (cur >= s) {
+                count++;
+                cur = 0;
             }
         }
-        return res;
+        return count >= k + 1;
     }
 }
