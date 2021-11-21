@@ -15,17 +15,17 @@
  */
 class Solution {
     public TreeNode buildTree(int[] inorder, int[] postorder) {
-        return helper(inorder, postorder, 0, inorder.length - 1, postorder.length - 1);
+        return helper(inorder, postorder, 0, inorder.length - 1, postorder.length - 1);   
     }
     
-    private TreeNode helper(int[] in, int[] post, int istart, int iend, int pidx) {
+    private TreeNode helper(int[] inorder, int[] postorder, int istart, int iend, int pidx) {
         if (istart > iend) return null;
-        if (istart == iend) return new TreeNode(in[istart]);
-        TreeNode root = new TreeNode(post[pidx]);
-        int idx = istart;
-        while (idx <= iend && in[idx] != post[pidx]) idx++;
-        root.right = helper(in, post, idx + 1, iend, pidx - 1);
-        root.left = helper(in, post, istart, idx - 1, pidx - (iend - idx) - 1);
+        if (istart == iend) return new TreeNode(inorder[istart]);
+        TreeNode root = new TreeNode(postorder[pidx]);
+        int i = istart;
+        while (i <= iend && inorder[i] != postorder[pidx]) i++;
+        root.left = helper(inorder, postorder, istart, i - 1, pidx - (iend - i) - 1);
+        root.right = helper(inorder, postorder, i + 1, iend, pidx - 1);
         return root;
     }
 }
