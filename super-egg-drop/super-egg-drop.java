@@ -1,11 +1,12 @@
 class Solution {
-    public int superEggDrop(int K, int N) {
-        int[][] dp = new int[N + 1][K + 1];
+    public int superEggDrop(int k, int n) {
+        int[][] dp = new int[n + 1][k + 1];
         int m = 0;
-        while (dp[m][K] < N) {
-            ++m;
-            for (int k = 1; k <= K; ++k)
-                dp[m][k] = dp[m - 1][k - 1] + dp[m - 1][k] + 1;
+        while (dp[m][k] < n) {
+            m++;
+            for (int i = 1; i <= k; i++) {
+                dp[m][i] = dp[m - 1][i - 1] + dp[m - 1][i] + 1;
+            }
         }
         return m;
     }
