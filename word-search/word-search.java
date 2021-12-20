@@ -1,31 +1,36 @@
 class Solution {
     public boolean exist(char[][] board, String word) {
-        this.board = board;
+        b = board;
         m = board.length;
         n = board[0].length;
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
-                if (helper(i, j, 0, word)) 
+                if (helper(i, j, word, 0)) {
                     return true;
+                }
             }
         }
         return false;
     }
-    char[][] board;
+    
+    char[][] b;
     int m, n;
     int[] dx = {0,1,0,-1}, dy = {1,0,-1,0};
-    private boolean helper(int x, int y, int idx, String word) {
-        if (idx == word.length()) return true;
-        if (x < 0 || x >= m || y < 0 || y >= n) return false;
-        if (board[x][y] != word.charAt(idx)) return false;
-        char c = board[x][y];
-        board[x][y] = '.';
+    
+    private boolean helper(int x, int y, String word, int idx) {
+        if (idx == word.length())
+            return true;
+        if (x < 0 || x >= m || y < 0 || y >= n || word.charAt(idx) != b[x][y])
+            return false;
+        b[x][y] = '.';
+        boolean found = false;
         for (int i = 0; i < 4; i++) {
-            int xx = x + dx[i], yy = y + dy[i];
-            if (helper(xx, yy, idx + 1, word))
-                return true;
+            if (helper(x + dx[i], y + dy[i], word, idx + 1)) {
+                found = true;
+                break;
+            }
         }
-        board[x][y] = c;
-        return false;
+        b[x][y] = word.charAt(idx);
+        return found;
     }
 }
