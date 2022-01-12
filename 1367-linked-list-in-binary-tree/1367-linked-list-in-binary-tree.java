@@ -25,13 +25,13 @@
  */
 class Solution {
     public boolean isSubPath(ListNode head, TreeNode root) {
-        return dfs(root, head, head);
+        return dfs(root, head);
     }
     
-    public boolean dfs(TreeNode root, ListNode head, ListNode h) {
+    public boolean dfs(TreeNode root, ListNode head) {
         if(head == null) return true;
         if(root == null) return false;
-        return match(root, head) || dfs(root.left, h, h) || dfs(root.right, h, h);
+        return match(root, head) || dfs(root.left, head) || dfs(root.right, head);
     }
     
     public boolean match(TreeNode root, ListNode head) {
