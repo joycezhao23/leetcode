@@ -1,4 +1,11 @@
 class Solution {
+    private boolean isValid(int[] count) {
+        for (int i = 0; i < 26; i++) {
+            if (count[i] != 0) return false;
+        }
+        return true;
+    }
+    
     public List<Integer> findAnagrams(String s, String p) {
         List<Integer> res = new ArrayList<Integer>();
         if (s.length() < p.length()) return res;
@@ -16,12 +23,5 @@ class Solution {
                 res.add(i - l + 1);
         }
         return res;
-    }
-    
-    private boolean isValid(int[] count) {
-        for (int i = 0; i < 26; i++) {
-            if (count[i] != 0) return false;
-        }
-        return true;
     }
 }
